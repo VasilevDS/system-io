@@ -5,13 +5,15 @@ services:
     container_name: nginx
     build:
       context: .
-      dockerfile: docker/Nginx.Dockerfile
+      dockerfile: docker/nginx.dockerfile
     image: nginx
     ports:
       - "8090:80"
     working_dir: /var/www
     volumes:
       - ./:/var/www
+    links:
+      - fpm
   fpm:
     container_name: fpm
     build:
@@ -19,6 +21,8 @@ services:
     working_dir: /var/www
     volumes:
       - ./:/var/www
+    links:
+      - pgsql
   pgsql:
     container_name: pgsql
     image: postgres:13
