@@ -6,18 +6,22 @@ use App\Repository\CouponRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CouponRepository::class)]
-#[ORM\Index(columns: ["code"], name: "code_idx")]
 class Coupon
 {
+    /** Фиксированная сумма скидки */
+    public const TYPE_FIXED = 'fixed';
+    /** Процент от суммы покупки  */
+    public const TYPE_PERCENTAGE = 'percentage';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $code = null;
 
-    #[ORM\Column(length: 20, unique: true)]
+    #[ORM\Column(length: 20)]
     private ?string $type = null;
 
     #[ORM\Column]
