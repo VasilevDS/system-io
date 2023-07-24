@@ -6,7 +6,7 @@ namespace App\Service\Product;
 use App\DTO\Product\PurchaseDataDTO;
 use App\Entity\Coupon;
 use App\Entity\Product;
-use App\Exception\CalculateCostException;
+use App\Exception\CalculateCostNegativeValueException;
 use App\Repository\CouponRepository;
 use App\Repository\ProductRepository;
 use App\Service\TaxNumber\TaxCountryHelper;
@@ -21,7 +21,7 @@ readonly class CalculateCostService
     }
 
     /**
-     * @throws CalculateCostException
+     * @throws CalculateCostNegativeValueException
      */
     public function calculateByPurchaseDataDTO(PurchaseDataDTO $productPriceDTO): int
     {
@@ -38,7 +38,7 @@ readonly class CalculateCostService
 
         $cost = $this->calculate($productPrice, $tax, $coupon);
         if ($cost < 0) {
-            throw new CalculateCostException('Negative price');
+            throw new CalculateCostNegativeValueException('Negative price');
         }
 
         return $cost;

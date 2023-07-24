@@ -3,6 +3,6 @@ declare(strict_types = 1);
 
 namespace App\Exception;
 
-class CalculateCostException extends \Exception
+class CalculateCostNegativeValueException extends \Exception
 {
 }

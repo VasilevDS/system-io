@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Serivce\Product;
 use App\DTO\Product\PurchaseDataDTO;
 use App\Entity\Coupon;
 use App\Entity\Product;
-use App\Exception\CalculateCostException;
+use App\Exception\CalculateCostNegativeValueException;
 use App\Repository\CouponRepository;
 use App\Repository\ProductRepository;
 use App\Service\Product\CalculateCostService;
@@ -88,7 +88,7 @@ class CalculateCostServiceTest extends TestCase
                     ->setValue(10000),
             );
 
-        $this->expectException(CalculateCostException::class);
+        $this->expectException(CalculateCostNegativeValueException::class);
         $this->expectExceptionMessage('Negative price');
 
         $this->service->calculateByPurchaseDataDTO($productPriceDTO);
