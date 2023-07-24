@@ -5,7 +5,12 @@ namespace App\Service\TaxNumber\Rules;
 
 use App\Exception\TaxNumberException;
 use App\Service\TaxNumber\CodeCountryEnum;
+use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
+// GRXXXXXXXXX
+#[AutoconfigureTag(name: 'tax_number.rules')]
+#[AsTaggedItem(index: CodeCountryEnum::Greece->value)]
 class GreeceRules extends AbstractTaxNumberRules
 {
     private const LENGTH = 11;

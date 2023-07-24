@@ -4,6 +4,9 @@ declare(strict_types = 1);
 namespace App\Form\Product;
 
 use App\DTO\Product\PurchaseDataDTO;
+use App\Validator\Coupon\CouponCodeConstraint;
+use App\Validator\Product\ProductIdConstraint;
+use App\Validator\TaxNumber\TaxNumberConstraint;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,6 +29,7 @@ class PurchaseDataForm extends AbstractType
                 [
                     'constraints' => [
                         new NotBlank(),
+                        new ProductIdConstraint(),
                     ],
                 ],
             )
@@ -35,10 +39,19 @@ class PurchaseDataForm extends AbstractType
                 [
                     'constraints' => [
                         new NotBlank(),
+                        new TaxNumberConstraint(),
                     ],
                 ],
             )
-            ->add('couponCode', TextType::class)
+            ->add(
+                'couponCode',
+                TextType::class,
+                [
+                    'constraints' => [
+                        new CouponCodeConstraint()
+                    ],
+                ],
+            )
             ->add('paymentProcessor', TextType::class);
     }
 

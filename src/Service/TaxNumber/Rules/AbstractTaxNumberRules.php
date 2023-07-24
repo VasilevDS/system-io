@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service\TaxNumber\Rules;
 
+use App\Exception\TaxNumberException;
 use App\Service\TaxNumber\TaxCountryHelper;
 
 abstract class AbstractTaxNumberRules
@@ -12,5 +13,8 @@ abstract class AbstractTaxNumberRules
     ) {
     }
 
+    /**
+     * @throws TaxNumberException
+     */
     abstract public function validate(string $taxNumber): void;
 }
