@@ -25,7 +25,7 @@ class Coupon
     private ?string $type = null;
 
     #[ORM\Column]
-    private ?float $value = null;
+    private ?int $value = null;
 
     public function getId(): ?int
     {
@@ -56,12 +56,12 @@ class Coupon
         return $this;
     }
 
-    public function getValue(): ?float
+    public function getValue(): ?int
     {
         return $this->value;
     }
 
-    public function setValue(float $value): static
+    public function setValue(int $value): static
     {
         $this->value = $value;
 
