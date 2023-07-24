@@ -51,8 +51,7 @@ class PurchaseDataForm extends AbstractType
                         new CouponCodeConstraint()
                     ],
                 ],
-            )
-            ->add('paymentProcessor', TextType::class);
+            );
     }
 
     /**
@@ -62,6 +61,7 @@ class PurchaseDataForm extends AbstractType
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults([
+            'allow_extra_fields' => true,
             'data_class' => PurchaseDataDTO::class,
         ]);
     }

@@ -4,10 +4,9 @@ namespace App\DTO\Product;
 
 class PurchaseDataDTO
 {
-    private string $product;
-    private string $taxNumber;
-    private ?string $couponCode;
-    private string $paymentProcessor;
+    protected string $product;
+    protected string $taxNumber;
+    protected ?string $couponCode;
 
     public function getProduct(): string
     {
@@ -41,18 +40,6 @@ class PurchaseDataDTO
     public function setCouponCode(?string $couponCode): self
     {
         $this->couponCode = $couponCode;
-
-        return $this;
-    }
-
-    public function getPaymentProcessor(): string
-    {
-        return $this->paymentProcessor;
-    }
-
-    public function setPaymentProcessor(string $paymentProcessor): self
-    {
-        $this->paymentProcessor = $paymentProcessor;
 
         return $this;
     }
