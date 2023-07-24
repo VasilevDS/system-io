@@ -3,14 +3,14 @@ declare(strict_types = 1);
 
 namespace App\Form\Product;
 
-use App\DTO\Product\ProductPriceDTO;
+use App\DTO\Product\PurchaseDataDTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ProductPriceForm extends AbstractType
+class PurchaseDataForm extends AbstractType
 {
     /**
      * {@inheritDoc}
@@ -49,7 +49,15 @@ class ProductPriceForm extends AbstractType
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults([
-            'data_class' => ProductPriceDTO::class,
+            'data_class' => PurchaseDataDTO::class,
         ]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getBlockPrefix(): string
+    {
+        return '';
     }
 }

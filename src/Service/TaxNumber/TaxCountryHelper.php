@@ -26,4 +26,14 @@ class TaxCountryHelper
             CodeCountryEnum::Greece => self::TAX_GREECE,
         };
     }
+
+    public function getTaxPercentageByTaxNumber(string $taxNumber): ?int
+    {
+        $codeCountry = $this->getCodeCountryEnum($taxNumber);
+        if (null === $codeCountry) {
+            return null;
+        }
+
+        return $this->getTaxPercentage($codeCountry);
+    }
 }

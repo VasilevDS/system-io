@@ -2,7 +2,7 @@
 
 namespace App\DTO\Product;
 
-class ProductPriceDTO
+class PurchaseDataDTO
 {
     private string $product;
     private string $taxNumber;
