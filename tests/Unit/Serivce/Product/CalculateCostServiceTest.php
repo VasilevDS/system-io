@@ -38,23 +38,19 @@ class CalculateCostServiceTest extends TestCase
      */
     public function testCalculateByProductPriceDTO(Product $product, ?Coupon $coupon, string $taxNumber, int $result): void
     {
-        $productPriceDTO = new PurchaseDataDTO();
-        $productPriceDTO
-            ->setProduct('1')
-            ->setCouponCode($coupon ? 'code' : null)
-            ->setTaxNumber($taxNumber);
+        $productPriceDTO = new PurchaseDataDTO('1', $taxNumber, $coupon?->getCode());
 
         $this->productRepositoryMock
             ->expects(self::once())
             ->method('find')
-            ->with($productPriceDTO->getProduct())
+            ->with($productPriceDTO->product)
             ->willReturn($product);
 
         if (null !== $coupon) {
             $this->couponRepositoryMock
                 ->expects(self::once())
                 ->method('findOneByCode')
-                ->with($productPriceDTO->getCouponCode())
+                ->with($productPriceDTO->couponCode)
                 ->willReturn($coupon);
         }
 
@@ -64,16 +60,12 @@ class CalculateCostServiceTest extends TestCase
 
     public function negativePriceTest(): void
     {
-        $productPriceDTO = new PurchaseDataDTO();
-        $productPriceDTO
-            ->setProduct('1')
-            ->setCouponCode('code')
-            ->setTaxNumber('GR123456789');
+        $productPriceDTO = new PurchaseDataDTO('1', 'code', 'GR123456789');
 
         $this->productRepositoryMock
             ->expects(self::once())
             ->method('find')
-            ->with($productPriceDTO->getProduct())
+            ->with($productPriceDTO->product)
             ->willReturn(
                 (new Product())->setPrice(1000),
             );
@@ -81,7 +73,7 @@ class CalculateCostServiceTest extends TestCase
         $this->couponRepositoryMock
             ->expects(self::once())
             ->method('findOneByCode')
-            ->with($productPriceDTO->getCouponCode())
+            ->with($productPriceDTO->couponCode)
             ->willReturn(
                 (new Coupon())
                     ->setType('fixed')
@@ -107,6 +99,7 @@ class CalculateCostServiceTest extends TestCase
                 (new Product())->setPrice(10000),
                 (new Coupon())
                     ->setType('percentage')
+                    ->setCode('code')
                     ->setValue(6),
                 'GR123456789',
                 11656,
@@ -115,6 +108,7 @@ class CalculateCostServiceTest extends TestCase
                 (new Product())->setPrice(10000),
                 (new Coupon())
                     ->setType('fixed')
+                    ->setCode('code')
                     ->setValue(1000),
                 'GR123456789',
                 11160,
@@ -123,6 +117,7 @@ class CalculateCostServiceTest extends TestCase
                 (new Product())->setPrice(2000),
                 (new Coupon())
                     ->setType('percentage')
+                    ->setCode('code')
                     ->setValue(7),
                 'DE123456789',
                 2213, // 2213.4

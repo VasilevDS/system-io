@@ -5,6 +5,7 @@ namespace App\Validator\TaxNumber;
 
 use Symfony\Component\Validator\Constraint;
 
+#[\Attribute]
 class TaxNumberConstraint extends Constraint
 {
 }

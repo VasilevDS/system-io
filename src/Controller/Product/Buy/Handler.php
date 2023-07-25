@@ -26,7 +26,7 @@ readonly class Handler
     {
         try {
             $price = $this->calculateCostService->calculateByPurchaseDataDTO($buyDTO);
-            $this->paymentService->pay($buyDTO->getPaymentProcessor(), $price);
+            $this->paymentService->pay($buyDTO->paymentProcessor, $price);
         } catch (PaymentProcessorException $exception) {
             throw $exception;
         } catch (\Throwable $exception) {

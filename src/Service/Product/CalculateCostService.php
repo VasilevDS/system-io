@@ -26,15 +26,15 @@ readonly class CalculateCostService
     public function calculateByPurchaseDataDTO(PurchaseDataDTO $productPriceDTO): int
     {
         /** @var Product $product */
-        $product = $this->productRepository->find($productPriceDTO->getProduct());
+        $product = $this->productRepository->find($productPriceDTO->product);
         $productPrice = $product->getPrice();
 
         $coupon = null;
-        if (null !== $productPriceDTO->getCouponCode()) {
-            $coupon = $this->couponRepository->findOneByCode($productPriceDTO->getCouponCode());
+        if (null !== $productPriceDTO->couponCode) {
+            $coupon = $this->couponRepository->findOneByCode($productPriceDTO->couponCode);
         }
 
-        $tax = $this->taxCountryHelper->getTaxPercentageByTaxNumber($productPriceDTO->getTaxNumber());
+        $tax = $this->taxCountryHelper->getTaxPercentageByTaxNumber($productPriceDTO->taxNumber);
 
         $cost = $this->calculate($productPrice, $tax, $coupon);
         if ($cost < 0) {
