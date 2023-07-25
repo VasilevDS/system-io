@@ -3,19 +3,18 @@ declare(strict_types = 1);
 
 namespace App\DTO\Product;
 
-class BuyDTO extends PurchaseDataDTO
+use App\Service\Payment\PaymentService;
+use Symfony\Component\Validator\Constraints as Assert;
+
+readonly class BuyDTO extends PurchaseDataDTO
 {
-    private string $paymentProcessor;
-
-    public function getPaymentProcessor(): string
-    {
-        return $this->paymentProcessor;
-    }
-
-    public function setPaymentProcessor(string $paymentProcessor): self
-    {
-        $this->paymentProcessor = $paymentProcessor;
-
-        return $this;
+    public function __construct(
+        #[Assert\Choice([PaymentService::PAYMENT_PROCESSOR_PAYPAL, PaymentService::PAYMENT_PROCESSOR_STRIPE])]
+        public string $paymentProcessor,
+        string $product,
+        string $taxNumber,
+        ?string $couponCode = null,
+    ) {
+        parent::__construct($product, $taxNumber, $couponCode);
     }
 }
