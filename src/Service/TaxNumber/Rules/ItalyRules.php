@@ -34,4 +34,19 @@ class ItalyRules extends AbstractTaxNumberRules
             throw new TaxNumberException('В номере с 2 по 13 символ должно быть только цифры.');
         }
     }
+
+    public function testCommitFirst(): string
+    {
+        return 'first';
+    }
+
+    public function testCommitSecond(): string
+    {
+        return 'second';
+    }
+
+    public function testCommitThird(): string
+    {
+        return 'third';
+    }
 }
